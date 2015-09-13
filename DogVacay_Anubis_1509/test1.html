@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <style>
+        #navigation {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 14px;
+            margin: 0 auto;
+        }
+
+            #navigation a {
+                padding-right: 30px;
+                font-size: 11px;
+                color: #0b0b0b;
+                letter-spacing: 3px;
+            }
+
+                #navigation a:hover {
+                    text-decoration: none;
+                    color: #bcb6ab;
+                }
+
+        /*------------------------------------*\
+            NAV
+        \*------------------------------------*/
+        #nav {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 14px;
+            margin: 0 auto;
+            list-style: none;
+            /* Bring the nav above everything else--uncomment if needed.
+            position:relative;
+            z-index:5;
+            */
+        }
+
+            #nav li {
+                float: left;
+                margin-right: 10px;
+                position: relative;
+            }
+
+            #nav a {
+                /*display:block;
+            padding:5px;
+            color:#fff;
+            background:#333;*/
+                text-decoration: none;
+                padding-right: 30px;
+                font-size: 11px;
+                color: #0b0b0b;
+                letter-spacing: 3px;
+            }
+
+                #nav a:hover {
+                    /*color:#fff;
+            background:#6b0c36;
+            text-decoration:underline;*/
+                    color: #bbbbbb;
+                }
+
+            /*--- DROPDOWN ---*/
+            #nav ul {
+                background: #fff; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+                background: rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
+                list-style: none;
+                position: absolute;
+                left: -9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+                padding-left: 0px;
+            }
+
+                #nav ul li {
+                    padding-top: 1px; /* Introducing a padding between the li and the a give the illusion spaced items */
+                    float: left;
+                }
+
+                #nav ul a {
+                    white-space: nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+                }
+
+            #nav li:hover ul { /* Display the dropdown on hover */
+                left: 0; /* Bring back on-screen when needed */
+            }
+
+            #nav li:hover a { /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
+                /*background:#6b0c36;*/
+                text-decoration: underline;
+            }
+
+            #nav li:hover ul a { /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+                text-decoration: none;
+            }
+
+            #nav li:hover ul li a:hover { /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+                background: #333;
+            }
+    </style>
+
+    <ul id="nav">
+        <li><a href="http://windingridgelane.blogspot.com/">HOME</a></li>
+        <li><a href="http://windingridgelane.blogspot.com/p/about-me-blog.html">ABOUT</a></li>
+        <li>
+            <a href="http://windingridgelane.blogspot.com/search/label/family">FAMILY</a>
+            <ul>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/family">Family</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/piri%20the%20cocker%20spaniel">Piri the Cocker Spaniel</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/story%20of%20us">Story of Us</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/exploring">Exploring</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/fun">Fun</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/family%20stories">Family Stories</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="http://windingridgelane.blogspot.com/search/label/making">MAKING</a>
+            <ul>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/crocheting%20and%20knitting">Knits &amp; things</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/2015/05/making-piris-place-felt-banner-weekend.html">Crafts &amp; DIYs</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/in%20the%20kitchen">Food</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/gardening">Garden</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/photography">Photography</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/videos">Videos</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="http://windingridgelane.blogspot.com/search/label/features">FEATURES</a>
+            <ul>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/a%20girl%20and%20her%20dog">A Girl &amp; Her Dog</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/Project%20Color">Project Color</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/blogger%20story%20session">Blogger Story sessions</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/wish%20list">Favorites</a></li>
+                <li><a href="http://windingridgelane.blogspot.com/search/label/reviews">Sponsored</a></li>
+            </ul>
+        </li>
+        <li><a href="http://windingridgelane.blogspot.com/search/label/Piri%27s%20Place">PIRI'S PLACE</a></li>
+    </ul>
+
+    <!-- <div id="navigation"> -->
+    <!--<ul id="nav">
+        <li><a href="#">Home</a></li>
+        <li>
+            <a href="#">About</a>
+            <ul>
+                <li><a href="#">The product</a></li>
+                <li><a href="#">Meet the team</a></li>
+            </ul>
+        </li>
+    </ul>-->
+    <!-- </div> -->
+    <!--
+        @@ FAMILY
+            Family
+            Piri the Cocker Spaniel
+            Story of Us
+            Exploring
+            Fun
+            Family Stories
+    -->
+</body>
+</html>
