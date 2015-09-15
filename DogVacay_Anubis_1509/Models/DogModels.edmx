@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DogVacayDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dog">
+          <Key>
+            <PropertyRef Name="DogId" />
+          </Key>
+          <Property Name="DogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" />
+          <Property Name="Sex" Type="char" MaxLength="1" />
+          <Property Name="Breed" Type="nchar" MaxLength="50" />
+          <Property Name="Age" Type="real" />
+          <Property Name="DOB" Type="smalldatetime" />
+          <Property Name="HumanId1" Type="int" />
+        </EntityType>
+        <EntityType Name="Human">
+          <Key>
+            <PropertyRef Name="HumanId" />
+          </Key>
+          <Property Name="HumanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stay">
+          <Key>
+            <PropertyRef Name="StayId" />
+          </Key>
+          <Property Name="StayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StayDays" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Stay_Dog">
+          <Key>
+            <PropertyRef Name="StayId" />
+            <PropertyRef Name="DogId" />
+          </Key>
+          <Property Name="StayId" Type="int" Nullable="false" />
+          <Property Name="DogId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Dog_dbo_Human_HumanId">
+          <End Role="Human" Type="Self.Human" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dog" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Human">
+              <PropertyRef Name="HumanId" />
+            </Principal>
+            <Dependent Role="Dog">
+              <PropertyRef Name="HumanId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Stay_Dog_dbo_Dog_DogId">
+          <End Role="Dog" Type="Self.Dog" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stay_Dog" Type="Self.Stay_Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dog">
+              <PropertyRef Name="DogId" />
+            </Principal>
+            <Dependent Role="Stay_Dog">
+              <PropertyRef Name="DogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Stay_Dog_dbo_Stay_StayId">
+          <End Role="Stay" Type="Self.Stay" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stay_Dog" Type="Self.Stay_Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stay">
+              <PropertyRef Name="StayId" />
+            </Principal>
+            <Dependent Role="Stay_Dog">
+              <PropertyRef Name="StayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DogVacayDataModelStoreContainer">
+          <EntitySet Name="Dog" EntityType="Self.Dog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Human" EntityType="Self.Human" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stay" EntityType="Self.Stay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stay_Dog" EntityType="Self.Stay_Dog" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Dog_dbo_Human_HumanId" Association="Self.FK_dbo_Dog_dbo_Human_HumanId">
+            <End Role="Human" EntitySet="Human" />
+            <End Role="Dog" EntitySet="Dog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Stay_Dog_dbo_Dog_DogId" Association="Self.FK_dbo_Stay_Dog_dbo_Dog_DogId">
+            <End Role="Dog" EntitySet="Dog" />
+            <End Role="Stay_Dog" EntitySet="Stay_Dog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Stay_Dog_dbo_Stay_StayId" Association="Self.FK_dbo_Stay_Dog_dbo_Stay_StayId">
+            <End Role="Stay" EntitySet="Stay" />
+            <End Role="Stay_Dog" EntitySet="Stay_Dog" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DogVacayDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dog">
+          <Key>
+            <PropertyRef Name="DogId" />
+          </Key>
+          <Property Name="DogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Breed" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="Single" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="HumanId1" Type="Int32" />
+          <NavigationProperty Name="Human" Relationship="Self.FK_dbo_Dog_dbo_Human_HumanId" FromRole="Dog" ToRole="Human" />
+          <NavigationProperty Name="Stays" Relationship="Self.Stay_Dog" FromRole="Dog" ToRole="Stay" />
+        </EntityType>
+        <EntityType Name="Human">
+          <Key>
+            <PropertyRef Name="HumanId" />
+          </Key>
+          <Property Name="HumanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dogs" Relationship="Self.FK_dbo_Dog_dbo_Human_HumanId" FromRole="Human" ToRole="Dog" />
+        </EntityType>
+        <EntityType Name="Stay">
+          <Key>
+            <PropertyRef Name="StayId" />
+          </Key>
+          <Property Name="StayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StayDays" Type="Int16" />
+          <NavigationProperty Name="Dogs" Relationship="Self.Stay_Dog" FromRole="Stay" ToRole="Dog" />
+        </EntityType>
+        <Association Name="FK_dbo_Dog_dbo_Human_HumanId">
+          <End Role="Human" Type="Self.Human" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dog" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Human">
+              <PropertyRef Name="HumanId" />
+            </Principal>
+            <Dependent Role="Dog">
+              <PropertyRef Name="HumanId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Stay_Dog">
+          <End Role="Dog" Type="Self.Dog" Multiplicity="*" />
+          <End Role="Stay" Type="Self.Stay" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DogVacayDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dogs" EntityType="Self.Dog" />
+          <EntitySet Name="Humen" EntityType="Self.Human" />
+          <EntitySet Name="Stays" EntityType="Self.Stay" />
+          <AssociationSet Name="FK_dbo_Dog_dbo_Human_HumanId" Association="Self.FK_dbo_Dog_dbo_Human_HumanId">
+            <End Role="Human" EntitySet="Humen" />
+            <End Role="Dog" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="Stay_Dog" Association="Self.Stay_Dog">
+            <End Role="Dog" EntitySet="Dogs" />
+            <End Role="Stay" EntitySet="Stays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DogVacayDataModelStoreContainer" CdmEntityContainer="DogVacayDataEntities">
+          <EntitySetMapping Name="Dogs">
+            <EntityTypeMapping TypeName="DogVacayDataModel.Dog">
+              <MappingFragment StoreEntitySet="Dog">
+                <ScalarProperty Name="DogId" ColumnName="DogId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="HumanId1" ColumnName="HumanId1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Humen">
+            <EntityTypeMapping TypeName="DogVacayDataModel.Human">
+              <MappingFragment StoreEntitySet="Human">
+                <ScalarProperty Name="HumanId" ColumnName="HumanId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stays">
+            <EntityTypeMapping TypeName="DogVacayDataModel.Stay">
+              <MappingFragment StoreEntitySet="Stay">
+                <ScalarProperty Name="StayId" ColumnName="StayId" />
+                <ScalarProperty Name="StayDays" ColumnName="StayDays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Stay_Dog" TypeName="DogVacayDataModel.Stay_Dog" StoreEntitySet="Stay_Dog">
+            <EndProperty Name="Dog">
+              <ScalarProperty Name="DogId" ColumnName="DogId" />
+            </EndProperty>
+            <EndProperty Name="Stay">
+              <ScalarProperty Name="StayId" ColumnName="StayId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
