@@ -17,7 +17,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // GET: Human
         public ActionResult Index()
         {
-            return View(db.Humen.ToList());
+            return View(db.Humans.ToList());
         }
 
         // GET: Human/Details/5
@@ -27,7 +27,7 @@ namespace DogVacay_Anubis_1509.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Human human = db.Humen.Find(id);
+            Human human = db.Humans.Find(id);
             if (human == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace DogVacay_Anubis_1509.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Humen.Add(human);
+                db.Humans.Add(human);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace DogVacay_Anubis_1509.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Human human = db.Humen.Find(id);
+            Human human = db.Humans.Find(id);
             if (human == null)
             {
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace DogVacay_Anubis_1509.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Human human = db.Humen.Find(id);
+            Human human = db.Humans.Find(id);
             if (human == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace DogVacay_Anubis_1509.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Human human = db.Humen.Find(id);
-            db.Humen.Remove(human);
+            Human human = db.Humans.Find(id);
+            db.Humans.Remove(human);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

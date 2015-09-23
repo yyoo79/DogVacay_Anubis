@@ -11,6 +11,7 @@ namespace DogVacay_Anubis_1509.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Dog
     {
@@ -18,8 +19,10 @@ namespace DogVacay_Anubis_1509.Models
         {
             this.Stays = new HashSet<Stay>();
         }
-    
+
+        [Required]
         public int DogId { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Sex { get; set; }

@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HumanController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -185,6 +186,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DogModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DogViewModel.cs" />
     <Compile Include="Models\Human.cs">
       <DependentUpon>DogModels.tt</DependentUpon>
     </Compile>
@@ -287,6 +289,11 @@
     <Content Include="Views\Human\Details.cshtml" />
     <Content Include="Views\Human\Edit.cshtml" />
     <Content Include="Views\Human\Index.cshtml" />
+    <Content Include="Views\Dog\Create.cshtml" />
+    <Content Include="Views\Dog\Delete.cshtml" />
+    <Content Include="Views\Dog\Details.cshtml" />
+    <Content Include="Views\Dog\Edit.cshtml" />
+    <Content Include="Views\Dog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

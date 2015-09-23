@@ -26,7 +26,7 @@ namespace DogVacay_Anubis_1509.Models
         }
     
         public virtual DbSet<Dog> Dogs { get; set; }
-        public virtual DbSet<Human> Humen { get; set; }
+        public virtual DbSet<Human> Humans { get; set; }
         public virtual DbSet<Stay> Stays { get; set; }
     }
 }
