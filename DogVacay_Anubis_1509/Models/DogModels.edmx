@@ -232,6 +232,14 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="e32c5ca83bef49f6af4089782c170d9d" Name="Diagram1">
+        <EntityTypeShape EntityType="DogVacayDataModel.Dog" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DogVacayDataModel.Human" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DogVacayDataModel.Stay" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="DogVacayDataModel.FK_dbo_Dog_dbo_Human_HumanId" ManuallyRouted="false" />
+        <AssociationConnector Association="DogVacayDataModel.Stay_Dog" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>
