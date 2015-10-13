@@ -1,0 +1,26 @@
+﻿@model DogVacay_Anubis_1509.Models.Stay
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stay</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StayDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StayDays)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StayId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
