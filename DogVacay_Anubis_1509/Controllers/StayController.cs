@@ -46,7 +46,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StayId,StayDays")] Stay stay)
+        public ActionResult Create([Bind(Include = "StayId,StayDays,StartDate,EndDate")] Stay stay)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StayId,StayDays")] Stay stay)
+        public ActionResult Edit([Bind(Include = "StayId,StayDays,StartDate,EndDate")] Stay stay)
         {
             if (ModelState.IsValid)
             {

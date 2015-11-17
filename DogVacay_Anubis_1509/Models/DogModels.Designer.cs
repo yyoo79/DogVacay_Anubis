@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\yyoo\Source\Repos\DogVacay_Anubis\DogVacay_Anubis_1509\Models\DogModels.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\yyoo DL\Documents\Visual Studio 2013\Projects\DogVacay_Anubis_1509\DogVacay_Anubis_1509\Models\DogModels.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

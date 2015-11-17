@@ -21,6 +21,8 @@ namespace DogVacay_Anubis_1509.Models
     
         public int StayId { get; set; }
         public Nullable<short> StayDays { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual ICollection<Dog> Dogs { get; set; }
     }

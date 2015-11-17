@@ -14,6 +14,12 @@
         <th>
             @Html.DisplayNameFor(model => model.StayDays)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +27,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.StayDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.StayId }) |
