@@ -13,26 +13,26 @@ namespace DogVacay_Anubis_1509.Models
         {
             //AllHumans = new List<SelectListItem>();
         }
-        public Dog Dog { get; set; }
-        public IEnumerable<SelectListItem> AllStays { get; set; }
+        //public Dog Dog { get; set; }
+        //public IEnumerable<SelectListItem> AllStays { get; set; }
 
-        private List<int> _selectedAllStays;
-        public List<int> SelectedStays
-        {
-            get
-            {
-                if (_selectedAllStays == null)
-                {
-                    _selectedAllStays = Dog.Stays.Select(s => s.StayId).ToList();
-                }
-                return _selectedAllStays;
-            }
-            set { _selectedAllStays = value; }
-        }
+        //private List<int> _selectedAllStays;
+        //public List<int> SelectedStays
+        //{
+        //    get
+        //    {
+        //        if (_selectedAllStays == null)
+        //        {
+        //            _selectedAllStays = Dog.Stays.Select(s => s.StayId).ToList();
+        //        }
+        //        return _selectedAllStays;
+        //    }
+        //    set { _selectedAllStays = value; }
+        //}
                 
-        [Display(Name = "-- Human List --")]
-        public IEnumerable<SelectListItem> ListOfHumans { get; set; }
-        public int SelectedHumanId { get; set; }
+        //[Display(Name = "-- Human List --")]
+        //public IEnumerable<SelectListItem> ListOfHumans { get; set; }
+        //public int SelectedHumanId { get; set; }
         
 
     }

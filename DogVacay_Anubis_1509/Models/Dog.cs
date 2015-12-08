@@ -16,7 +16,7 @@ namespace DogVacay_Anubis_1509.Models
     {
         public Dog()
         {
-            this.Stays = new HashSet<Stay>();
+            this.Stays1 = new HashSet<Stay>();
         }
     
         public int DogId { get; set; }
@@ -29,6 +29,6 @@ namespace DogVacay_Anubis_1509.Models
         public Nullable<int> HumanId1 { get; set; }
     
         public virtual Human Human { get; set; }
-        public virtual ICollection<Stay> Stays { get; set; }
+        public virtual ICollection<Stay> Stays1 { get; set; }
     }
 }

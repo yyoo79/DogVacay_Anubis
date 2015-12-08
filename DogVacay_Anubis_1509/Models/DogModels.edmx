@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DogVacayDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Dog">
           <Key>
             <PropertyRef Name="DogId" />
@@ -24,23 +30,17 @@
           </Key>
           <Property Name="HumanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Stay">
           <Key>
             <PropertyRef Name="StayId" />
           </Key>
           <Property Name="StayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DogId" Type="int" Nullable="false" />
           <Property Name="StayDays" Type="smallint" />
           <Property Name="StartDate" Type="smalldatetime" />
           <Property Name="EndDate" Type="smalldatetime" />
-        </EntityType>
-        <EntityType Name="Stay_Dog">
-          <Key>
-            <PropertyRef Name="StayId" />
-            <PropertyRef Name="DogId" />
-          </Key>
-          <Property Name="StayId" Type="int" Nullable="false" />
-          <Property Name="DogId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Dog_dbo_Human_HumanId">
           <End Role="Human" Type="Self.Human" Multiplicity="0..1">
@@ -56,50 +56,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Stay_Dog_dbo_Dog_DogId">
+        <Association Name="FK_dbo_Stay_dbo_Dog_DogId">
           <End Role="Dog" Type="Self.Dog" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Stay_Dog" Type="Self.Stay_Dog" Multiplicity="*" />
+          <End Role="Stay" Type="Self.Stay" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Dog">
               <PropertyRef Name="DogId" />
             </Principal>
-            <Dependent Role="Stay_Dog">
+            <Dependent Role="Stay">
               <PropertyRef Name="DogId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Stay_Dog_dbo_Stay_StayId">
-          <End Role="Stay" Type="Self.Stay" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Stay_Dog" Type="Self.Stay_Dog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stay">
-              <PropertyRef Name="StayId" />
-            </Principal>
-            <Dependent Role="Stay_Dog">
-              <PropertyRef Name="StayId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DogVacayDataModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dog" EntityType="Self.Dog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Human" EntityType="Self.Human" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stay" EntityType="Self.Stay" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Stay_Dog" EntityType="Self.Stay_Dog" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Dog_dbo_Human_HumanId" Association="Self.FK_dbo_Dog_dbo_Human_HumanId">
             <End Role="Human" EntitySet="Human" />
             <End Role="Dog" EntitySet="Dog" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Stay_Dog_dbo_Dog_DogId" Association="Self.FK_dbo_Stay_Dog_dbo_Dog_DogId">
+          <AssociationSet Name="FK_dbo_Stay_dbo_Dog_DogId" Association="Self.FK_dbo_Stay_dbo_Dog_DogId">
             <End Role="Dog" EntitySet="Dog" />
-            <End Role="Stay_Dog" EntitySet="Stay_Dog" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Stay_Dog_dbo_Stay_StayId" Association="Self.FK_dbo_Stay_Dog_dbo_Stay_StayId">
             <End Role="Stay" EntitySet="Stay" />
-            <End Role="Stay_Dog" EntitySet="Stay_Dog" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -119,7 +101,7 @@
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="HumanId1" Type="Int32" />
           <NavigationProperty Name="Human" Relationship="Self.FK_dbo_Dog_dbo_Human_HumanId" FromRole="Dog" ToRole="Human" />
-          <NavigationProperty Name="Stays" Relationship="Self.Stay_Dog" FromRole="Dog" ToRole="Stay" />
+          <NavigationProperty Name="Stays1" Relationship="DogVacayDataModel.FK_dbo_Stay_dbo_Dog_DogId" FromRole="Dog" ToRole="Stay" />
         </EntityType>
         <EntityType Name="Human">
           <Key>
@@ -128,6 +110,7 @@
           <Property Name="HumanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Dogs" Relationship="Self.FK_dbo_Dog_dbo_Human_HumanId" FromRole="Human" ToRole="Dog" />
+          <Property Name="LastName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Stay">
           <Key>
@@ -135,9 +118,10 @@
           </Key>
           <Property Name="StayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StayDays" Type="Int16" />
-          <NavigationProperty Name="Dogs" Relationship="Self.Stay_Dog" FromRole="Stay" ToRole="Dog" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="DogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dog" Relationship="DogVacayDataModel.FK_dbo_Stay_dbo_Dog_DogId" FromRole="Stay" ToRole="Dog" />
         </EntityType>
         <Association Name="FK_dbo_Dog_dbo_Human_HumanId">
           <End Role="Human" Type="Self.Human" Multiplicity="0..1">
@@ -153,10 +137,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Stay_Dog">
-          <End Role="Dog" Type="Self.Dog" Multiplicity="*" />
-          <End Role="Stay" Type="Self.Stay" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="DogVacayDataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Dogs" EntityType="Self.Dog" />
           <EntitySet Name="Humen" EntityType="Self.Human" />
@@ -165,11 +145,32 @@
             <End Role="Human" EntitySet="Humen" />
             <End Role="Dog" EntitySet="Dogs" />
           </AssociationSet>
-          <AssociationSet Name="Stay_Dog" Association="Self.Stay_Dog">
+          <EntitySet Name="C__RefactorLog" EntityType="DogVacayDataModel.C__RefactorLog" />
+          <AssociationSet Name="FK_dbo_Stay_dbo_Dog_DogId" Association="DogVacayDataModel.FK_dbo_Stay_dbo_Dog_DogId">
             <End Role="Dog" EntitySet="Dogs" />
             <End Role="Stay" EntitySet="Stays" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Stay_dbo_Dog_DogId">
+          <End Type="DogVacayDataModel.Dog" Role="Dog" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DogVacayDataModel.Stay" Role="Stay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dog">
+              <PropertyRef Name="DogId" />
+            </Principal>
+            <Dependent Role="Stay">
+              <PropertyRef Name="DogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -193,6 +194,7 @@
           <EntitySetMapping Name="Humen">
             <EntityTypeMapping TypeName="DogVacayDataModel.Human">
               <MappingFragment StoreEntitySet="Human">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="HumanId" ColumnName="HumanId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
               </MappingFragment>
@@ -201,6 +203,7 @@
           <EntitySetMapping Name="Stays">
             <EntityTypeMapping TypeName="DogVacayDataModel.Stay">
               <MappingFragment StoreEntitySet="Stay">
+                <ScalarProperty Name="DogId" ColumnName="DogId" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="StayId" ColumnName="StayId" />
@@ -208,14 +211,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Stay_Dog" TypeName="DogVacayDataModel.Stay_Dog" StoreEntitySet="Stay_Dog">
-            <EndProperty Name="Dog">
-              <ScalarProperty Name="DogId" ColumnName="DogId" />
-            </EndProperty>
-            <EndProperty Name="Stay">
-              <ScalarProperty Name="StayId" ColumnName="StayId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="DogVacayDataModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -239,11 +241,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="e32c5ca83bef49f6af4089782c170d9d" Name="Diagram1">
-        <EntityTypeShape EntityType="DogVacayDataModel.Dog" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DogVacayDataModel.Human" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DogVacayDataModel.Stay" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DogVacayDataModel.Dog" Width="1.5" PointX="5.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DogVacayDataModel.Human" Width="1.5" PointX="2.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DogVacayDataModel.Stay" Width="1.5" PointX="8.375" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="DogVacayDataModel.FK_dbo_Dog_dbo_Human_HumanId" ManuallyRouted="false" />
-        <AssociationConnector Association="DogVacayDataModel.Stay_Dog" ManuallyRouted="false" />
+        <AssociationConnector Association="DogVacayDataModel.FK_dbo_Stay_dbo_Dog_DogId" />
       </Diagram>
     </Diagrams>
   </Designer>

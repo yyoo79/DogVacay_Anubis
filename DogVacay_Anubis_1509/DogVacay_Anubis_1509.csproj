@@ -169,6 +169,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\C__RefactorLog.cs">
+      <DependentUpon>DogModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Dog.cs">
       <DependentUpon>DogModels.tt</DependentUpon>
     </Compile>
@@ -234,8 +237,11 @@
       <DependentUpon>DogModels.edmx</DependentUpon>
       <LastGenOutput>DogModels.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\datepicker\less\datepicker.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\datepicker\css\datepicker.css" />
+    <Content Include="Scripts\datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -286,16 +292,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Human\Create.cshtml" />
-    <Content Include="Views\Human\Delete.cshtml" />
-    <Content Include="Views\Human\Details.cshtml" />
-    <Content Include="Views\Human\Edit.cshtml" />
-    <Content Include="Views\Human\Index.cshtml" />
     <Content Include="Views\Dog\Create.cshtml" />
     <Content Include="Views\Dog\Delete.cshtml" />
     <Content Include="Views\Dog\Details.cshtml" />
     <Content Include="Views\Dog\Edit.cshtml" />
     <Content Include="Views\Dog\Index.cshtml" />
+    <Content Include="Views\Human\Create.cshtml" />
+    <Content Include="Views\Human\Delete.cshtml" />
+    <Content Include="Views\Human\Details.cshtml" />
+    <Content Include="Views\Human\Edit.cshtml" />
+    <Content Include="Views\Human\Index.cshtml" />
     <Content Include="Views\Stay\Create.cshtml" />
     <Content Include="Views\Stay\Delete.cshtml" />
     <Content Include="Views\Stay\Details.cshtml" />

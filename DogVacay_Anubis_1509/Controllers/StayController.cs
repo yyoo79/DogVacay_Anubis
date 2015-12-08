@@ -38,8 +38,9 @@ namespace DogVacay_Anubis_1509.Controllers
         // GET: Stay/Create
         public ActionResult Create()
         {
+            ViewBag.DogId = new SelectList(db.Dogs, "DogId", "FirstName");
             return View();
-        }
+        }        
 
         // POST: Stay/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

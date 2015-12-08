@@ -39,7 +39,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // GET: Dog/Create
         public ActionResult Create()
         {
-            ViewBag.HumanId1 = new SelectList(db.Humans, "HumanId", "FirstName");
+            ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace DogVacay_Anubis_1509.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.HumanId1 = new SelectList(db.Humans, "HumanId", "FirstName", dog.HumanId1);
+            ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
             return View(dog);
         }
 
@@ -65,66 +65,16 @@ namespace DogVacay_Anubis_1509.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var dogViewModel = new DogViewModel
+            }
+            Dog dog = db.Dogs.Find(id);
+            if (dog == null)
             {
-                Dog = db.Dogs.Include(i => i.Stays).First(i => i.DogId == id),
-            };
-
-            if (dogViewModel.Dog == null)
                 return HttpNotFound();
-
-            dogViewModel.ListOfHumans =
-                new SelectList(db.Humans, "HumanId", "FirstName", 1);
-
-
-            //var humansList = db.Humans
-            //    .Select(item => new SelectListItem
-            //    {
-            //        Text = item.FirstName.ToString(),
-            //        Value = item.HumanId.ToString()
-            //    })
-            //    .ToList();
-            //humansList.Insert(0, new SelectListItem { Selected = true, Text = "", Value = Guid.Empty.ToString() });
-            //var selectedHuman1 = humansList.First(h => h.Value == dogViewModel.Dog.HumanId1.ToString());
-            //ViewBag.ListOfHumans = humansList;
-
-
-
-            //ViewBag.ListOfHumans = selectedHuman1.Text;
-
-            //var baseTypeList = _service.GetBaseType()
-            //    .Select(item => new SelectListItem
-            //    {
-            //        Text = item.nv_BudgetDataElement_Name.ToString(),
-            //        Value = item.g_BudgetDataElement_GUID.ToString()
-            //    })
-            //    .ToList();
-            //baseTypeList.Insert(0, new SelectListItem { Selected = true, Text = "", Value = Guid.Empty.ToString() });
-            //ViewBag.ListOfBaseTypes = baseTypeList;
-
-
-            var allStaysList = db.Stays.ToList();
-            dogViewModel.AllStays = allStaysList.Select(o => new SelectListItem
-            {
-                Text = o.StayDays.ToString(),
-                Value = o.StayId.ToString()
-            });
-
-            ViewBag.HumanIdforDog =
-                new SelectList(db.Humans, "HumanId", "FullName", dogViewModel.Dog.HumanId1);                
-
-            return View(dogViewModel);
-
-
-            //Dog dog = db.Dogs.Find(id);
-            //if (dog == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
-            //return View(dog);
+            }
+            ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
+            return View(dog);
         }
 
         // POST: Dog/Edit/5
@@ -140,7 +90,7 @@ namespace DogVacay_Anubis_1509.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.HumanId1 = new SelectList(db.Humans, "HumanId", "FirstName", dog.HumanId1);
+            ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
             return View(dog);
         }
 

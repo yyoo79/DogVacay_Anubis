@@ -21,6 +21,7 @@ namespace DogVacay_Anubis_1509.Models
     
         public int HumanId { get; set; }
         public string FirstName { get; set; }
+        public string LastName { get; set; }
     
         public virtual ICollection<Dog> Dogs { get; set; }
     }

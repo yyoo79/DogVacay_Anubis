@@ -21,10 +21,12 @@ namespace DogVacay_Anubis_1509
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/datepicker/js/bootstrap-datepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Scripts/datepicker/css/datepicker.css",
                       "~/Content/site.css"));
         }
     }

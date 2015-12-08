@@ -68,6 +68,35 @@
 
     </dl>
 </div>
+
+<table class="table">
+    <tr>
+        <th>
+            StayDays
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+    </tr>
+    @foreach (var item in Model.Stays1)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StayDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+        </tr>
+    }
+</table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.DogId }) |
     @Html.ActionLink("Back to List", "Index")
