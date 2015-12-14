@@ -47,7 +47,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StayId,StayDays,StartDate,EndDate")] Stay stay)
+        public ActionResult Create([Bind(Include = "StayId,DogId,StayDays,StartDate,EndDate")] Stay stay)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,19 @@ namespace DogVacay_Anubis_1509.Controllers
         // GET: Stay/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Dog dog = db.Dogs.Find(id);
+            //if (dog == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
+            //return View(dog);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -71,6 +84,7 @@ namespace DogVacay_Anubis_1509.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DogId = new SelectList(db.Dogs, "DogId", "FirstName", stay.Dog.DogId);
             return View(stay);
         }
 
@@ -79,7 +93,7 @@ namespace DogVacay_Anubis_1509.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StayId,StayDays,StartDate,EndDate")] Stay stay)
+        public ActionResult Edit([Bind(Include = "StayId,DogId,StayDays,StartDate,EndDate")] Stay stay)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +101,8 @@ namespace DogVacay_Anubis_1509.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //ViewBag.HumanId1 = new SelectList(db.Humen, "HumanId", "FirstName", dog.HumanId1);
+            ViewBag.DogId = new SelectList(db.Dogs, "DogId", "FirstName", stay.Dog.DogId);
             return View(stay);
         }
 
@@ -124,5 +140,95 @@ namespace DogVacay_Anubis_1509.Controllers
             }
             base.Dispose(disposing);
         }
+        
+        //// GET: Stay/GetEvents
+        //public ActionResult GetEvents(double start, double end)
+        //{
+        //    var fromDate = ConvertFromUnixTimestamp(start);
+        //    var toDate = ConvertFromUnixTimestamp(end);
+
+        //    //Get the events
+        //    //You may get from the repository also
+        //    var eventList = GetEvents();
+
+        //    var rows = eventList.ToArray();
+        //    return Json(rows, JsonRequestBehavior.AllowGet);
+        //}
+
+        // GET: Stay/GetEvents
+        public ActionResult GetEvents()
+        {
+            //var fromDate = ConvertFromUnixTimestamp(start);
+            //var toDate = ConvertFromUnixTimestamp(end);
+
+            //Get the events
+            //You may get from the repository also
+            //var eventList = GetEvents2();
+            var eventList = GetEventsFromDB();
+
+            var rows = eventList.ToArray();
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<CalEventModel> GetEventsFromDB()
+        {
+            List<CalEventModel> eventList = new List<CalEventModel>();
+            if (ModelState.IsValid)
+            {                
+                List<Stay> stayList = db.Stays.ToList();
+                foreach (var stay in stayList)
+                {
+                    DateTime startDateDT = stay.StartDate.GetValueOrDefault(DateTime.Now);
+                    DateTime endDateDT = stay.EndDate.GetValueOrDefault(DateTime.Now);
+                    CalEventModel newEvent = new CalEventModel
+                    {
+                        id = "1",
+                        title = stay.Dog.FirstName, //"Event 1",
+                        start = startDateDT.ToString("s"), //DateTime.Now.AddDays(1).ToString("s"),
+                        end = endDateDT.ToString("s"), //DateTime.Now.AddDays(1).ToString("s"),
+                        allDay = true
+                    };
+                    eventList.Add(newEvent);
+                }                
+            }
+            return eventList;
+        }
+
+        private List<CalEventModel> GetEvents2()
+        {
+            List<CalEventModel> eventList = new List<CalEventModel>();
+
+            CalEventModel newEvent = new CalEventModel
+            {
+                id = "1",
+                title = "Event 1",
+                start = DateTime.Now.AddDays(1).ToString("s"),
+                end = DateTime.Now.AddDays(1).ToString("s"),
+                allDay = false
+            };
+            
+            eventList.Add(newEvent);
+
+            newEvent = new CalEventModel
+            {
+                id = "1",
+                title = "Event 3",
+                start = DateTime.Now.AddDays(2).ToString("s"),
+                end = DateTime.Now.AddDays(3).ToString("s"),
+                allDay = false
+            };
+
+            eventList.Add(newEvent);
+
+            return eventList;
+        }
+
+        private static DateTime ConvertFromUnixTimestamp(double timestamp)
+        {
+            var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return origin.AddSeconds(timestamp);
+        }
+
+
     }
 }

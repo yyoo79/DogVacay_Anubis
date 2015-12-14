@@ -49,3 +49,73 @@
 }
 
 </table>
+
+@*<div id="divGCalendar">
+    <iframe src="https://calendar.google.com/calendar/embed?src=qehbt8lf9drhf03grpk2hlnb14%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>*@
+
+<div id='calendar'></div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/fullcalendar")
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                
+                ////default:
+                //header: { 
+                //    left: 'title',
+                //    center: '',
+                //    right: 'today prev,next'
+                //}
+
+                //firstDay: 0 //default - Sunday
+                //theme: true,
+                editable: false,
+
+                //events: function (start, end, timezone, callback) {
+                //    $.ajax({
+                //        url: source,
+                //        type: 'POST',
+                //        data: {},
+                //        success: function (doc) {
+                //            events.push(doc);
+                //            callback(events);
+                //        }
+                //    });
+                //}
+
+                //events: “/home/getevents/”
+                events: "/Stay/GetEvents/"
+
+
+                
+            })
+
+            //var myCalendar = $('#calendar');
+            //myCalendar.fullCalendar();
+            //var myEvent = {
+            //    title: "my new event",
+            //    allDay: true,
+            //    start: new Date(),
+            //    end: new Date()
+            //};
+            //myCalendar.fullCalendar('renderEvent', myEvent);
+
+
+
+                     
+                         
+                  
+
+
+
+
+
+        });
+    </script>
+}
+

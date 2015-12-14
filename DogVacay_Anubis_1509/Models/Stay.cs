@@ -17,9 +17,9 @@ namespace DogVacay_Anubis_1509.Models
     {
         public int StayId { get; set; }
         public Nullable<short> StayDays { get; set; }
-        
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> StartDate { get; set; }
-        
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> EndDate { get; set; }
         public int DogId { get; set; }
     

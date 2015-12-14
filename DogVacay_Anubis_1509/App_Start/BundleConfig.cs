@@ -27,7 +27,12 @@ namespace DogVacay_Anubis_1509
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Scripts/datepicker/css/datepicker.css",
+                      "~/Scripts/fullcalendar-2.5.0/fullcalendar.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
+                      "~/Scripts/fullcalendar-2.5.0/lib/moment.min.js",
+                      "~/Scripts/fullcalendar-2.5.0/fullcalendar.js"));
         }
     }
 }
