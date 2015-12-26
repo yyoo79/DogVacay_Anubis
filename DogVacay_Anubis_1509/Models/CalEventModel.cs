@@ -13,6 +13,18 @@ namespace DogVacay_Anubis_1509.Models
         public string start { get; set; }
         public string end { get; set; }
         public string url { get; set; }
+        public string color { get; set; }
+        
+        //public string color {
+        //    get {
+        //        if (String.IsNullOrEmpty(_color))
+        //        {
+        //            _color = colorArray[new Random().Next(0,colorArray.Length)];
+        //        }
+        //        return _color; 
+        //    }
+        //    set { _color = value; }
+        //}
 
         public bool allDay { get; set; }        
     }

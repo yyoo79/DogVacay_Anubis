@@ -172,6 +172,9 @@ namespace DogVacay_Anubis_1509.Controllers
 
         private List<CalEventModel> GetEventsFromDB()
         {
+            // this is random object for picking random color for each Stay
+            var Random1 = new Random();
+
             List<CalEventModel> eventList = new List<CalEventModel>();
             if (ModelState.IsValid)
             {                
@@ -179,7 +182,7 @@ namespace DogVacay_Anubis_1509.Controllers
                 foreach (var stay in stayList)
                 {
                     DateTime startDateDT = stay.StartDate.GetValueOrDefault(DateTime.Now);
-                    DateTime endDateDT = stay.EndDate.GetValueOrDefault(DateTime.Now);
+                    DateTime endDateDT = stay.EndDate.GetValueOrDefault(DateTime.Now).AddDays(1);                    
                     CalEventModel newEvent = new CalEventModel
                     {
                         id = "1",
@@ -188,6 +191,8 @@ namespace DogVacay_Anubis_1509.Controllers
                         end = endDateDT.ToString("s"), //DateTime.Now.AddDays(1).ToString("s"),
                         allDay = true
                     };
+
+                    newEvent.color = colorArray[Random1.Next(0, colorArray.Length)];
                     eventList.Add(newEvent);
                 }                
             }
@@ -229,6 +234,18 @@ namespace DogVacay_Anubis_1509.Controllers
             return origin.AddSeconds(timestamp);
         }
 
+        private string[] colorArray = new string[] { 
+            "#5d8aa8", "#e32636", "#9966cc", "#915c83", "#008000", "#4b5320", "#a52a2a", "#6e7f80", "#007fff", "#98777b",
+            "#3d2b1f", "#318ce7", "#0d98ba", "#8a2be2", "#79443b", "#cc0000", "#873260", "#006a4e", "#cb4154", "#c32148",
+            "#004225", "#a52a2a", "#480607", "#800020", "#cc5500", "#8a3324", "#bd33a4", "#702963", "#007aa5", "#e03c31",
+            "#536872", "#4b3621", "#1e4d2b", "#78866b", "#ff0800", "#592720", "#eb4c42", "#007ba7", "#a0785a", "#d2691e"            
+            };
+
+        //private string[] getcolorArray()
+        //{
+        //    return colorArray;
+        //    //return colorArray[new Random().Next(0, colorArray.Length)];
+        //}
 
     }
 }
